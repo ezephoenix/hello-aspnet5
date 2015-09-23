@@ -10,4 +10,5 @@ var getApiUrl = function(relativePath) {
 frisby.create('Get greeting')
   .get(getApiUrl('/api/greeting'))
   .expectStatus(200)
+  .inspectBody()
 .toss();
