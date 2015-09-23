@@ -15,4 +15,5 @@ Welcome to our ASP.NET 5 example project. In it, we demonstrate how to write a b
 5. Docker build for unit test defined in *Dockerfile-unittest*
 6. API tests in *apitest* (we test our ASP.NET 5 service using the nodejs-based Frisby test framework)
 
-Check out the deployed service at huzzah.ezecloud.net/api/greeting!
+# Check it out live!
+Check out the [deployed service](http://huzzah.ezecloud.net/api/greeting "Greetings from the superbowl") 
