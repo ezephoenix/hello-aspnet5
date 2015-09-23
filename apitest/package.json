@@ -1,0 +1,25 @@
+{
+  "name": "hello-test",
+  "version": "0.0.1",
+  "description": "Service API test",
+  "dependencies": {
+    "frisby": "^0.8.5",
+    "jasmine-node": "^1.14.5"
+  },
+  "devDependencies": {
+    "frisby": "^0.8.5"
+  },
+  "scripts": {
+    "test": "jasmine-node spec/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ezephoenix/hello-aspnet5.git"
+  },
+  "author": "Ranjith Zachariah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ezephoenix/hello-aspnet5/issues"
+  },
+  "homepage": "https://github.com/ezephoenix/hello-aspnet5#readme"
+}

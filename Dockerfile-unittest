@@ -1,0 +1,7 @@
+FROM microsoft/aspnet:1.0.0-beta6
+
+COPY src/. /app/
+WORKDIR /app/Hello.Test
+ENV MONO_THREADS_PER_CPU=2000
+RUN ["dnu", "restore"]
+CMD ["dnx", ".", "test"]
