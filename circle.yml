@@ -6,6 +6,7 @@ dependencies:
   pre:
     - docker info
   override:
+    # Build docker image
     - docker build -t $IMAGE_NAME .
     - docker tag $IMAGE_NAME $IMAGE_NAME:$CIRCLE_BUILD_NUM
 
@@ -13,23 +14,25 @@ test:
   pre:
     - cp Dockerfile-unittest Dockerfile
   override:
+    # Unit test
     - docker build -t unittest .
     - docker run -it unittest
 
+    # Run service container
     - docker run -d -p 80:80 --name serviceUnderTest $IMAGE_NAME:$CIRCLE_BUILD_NUM
     - docker logs serviceUnderTest
 
+    # Run API test
     - docker build -t apitest apitest
     - docker run --link serviceUnderTest:serviceUnderTest apitest http://serviceUnderTest
-
-  post:
-    - docker stop serviceUnderTest  
 
 deployment:
   hub:
     branch: master
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      
+      # Push image and image version tag
       - docker push $IMAGE_NAME
       - docker push $IMAGE_NAME:$CIRCLE_BUILD_NUM
 
@@ -38,6 +41,8 @@ deployment:
 
       # System test
       - docker run ezephoenix/phoenix-test
+      
+      # Tag image as PASSED and push PASSED tag
       - docker tag $IMAGE_NAME $IMAGE_NAME:PASSED
       - docker push $IMAGE_NAME:PASSED
 
@@ -45,6 +50,6 @@ deployment:
       - curl -X POST $PHOENIX_WEBHOOK
 
       # Deploy to ezecloud.net
-      - git clone https://github.com/robzhu/rancher-upgrade prep
-      - cd prep && npm install
-      - node ./prep/rancher-upgrade.js $RANCHER_SERVICE_NAME $IMAGE_NAME:$CIRCLE_BUILD_NUM
+      #- git clone https://github.com/robzhu/rancher-upgrade prep
+      #- cd prep && npm install
+      #- node ./prep/rancher-upgrade.js $RANCHER_SERVICE_NAME $IMAGE_NAME:$CIRCLE_BUILD_NUM
