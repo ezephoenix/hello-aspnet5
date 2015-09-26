@@ -36,8 +36,8 @@ deployment:
       - docker push $IMAGE_NAME
       - docker push $IMAGE_NAME:$CIRCLE_BUILD_NUM
 
-      # Deploy to staging.ezecloud.net
-      - curl -X POST $TUTUM_WEBHOOK_STAGING
+      # Deploy to sit.ezecloud.net
+      - curl -X POST $TUTUM_WEBHOOK_SIT
 
       # System test
       - docker run ezephoenix/phoenix-test
@@ -46,8 +46,8 @@ deployment:
       - docker tag $IMAGE_NAME $IMAGE_NAME:PASSED
       - docker push $IMAGE_NAME:PASSED
 
-      # Deploy to ezephoenix.com
-      - curl -X POST $TUTUM_WEBHOOK_PHOENIX
+      # Deploy to staging.ezecloud.net
+      - curl -X POST $TUTUM_WEBHOOK_STAGING
 
       # Deploy to ezecloud.net
       #- git clone https://github.com/robzhu/rancher-upgrade prep
